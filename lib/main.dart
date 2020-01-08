@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mysecondflutterapp/SearchPage.dart';
+import 'package:mysecondflutterapp/Wallpapers.dart';
 
 import 'DartObject.dart';
 
@@ -74,7 +76,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       body: TabBarView(
         controller: controller,
           children: <Widget>[
-
+              Wallpapers(),
+              SearchPage()
           ]
       ),
     );
