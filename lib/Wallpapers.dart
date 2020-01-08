@@ -17,7 +17,29 @@ class _WallpapersState extends State<Wallpapers> {
     return Material(
        child: ListView.builder(
            itemBuilder: (context,index){
-              return Image.network(widget.obj.photos[index].src.landscape);
+              return Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Image.network(widget.obj.photos[index].src.landscape),
+                      Container(
+                        width: double.infinity,
+                        child: Material(
+                          color: Theme.of(context).primaryColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(widget.obj.photos[index].photographer,
+                            textAlign: TextAlign.center,),
+                          ),
+                        ),
+                      )
+                    ],
+
+                  ),
+                ),
+              );
            },
            itemCount: widget.obj.photos.length
        )
