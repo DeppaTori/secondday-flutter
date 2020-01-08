@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
 
   TabController controller;
-  String url = "https://api.pexels.com/v1/search?query=example+query&per_page=15&page=1";
+
 
   Map<String,String> header = {
     "Authorization":"563492ad6f9170000100000157666921e3c64dfca5d145b86d173d22"
@@ -40,8 +40,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     controller = TabController(length: 2, vsync: this);
   }
 
+  String url(String query, int pageNo, int perPage){
+    return "https://api.pexels.com/v1/search?query=${query.trim()}+query&per_page=$perPage&page=${pageNo}";
+  }
+
   void fetchData() async {
-    var data = await http.get(url,headers: header);
+    var data = await http.get(url("wallpapers",1,5),headers: header);
     var decodedJson = jsonDecode(data.body);
     obj = DartObject.fromJson(decodedJson);
     print(data.body);
