@@ -53,7 +53,31 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Pexels App"),
+        bottom: TabBar(
+          controller: controller,
+          tabs: <Widget>[
+            Tab(
+              child:Text("Wallpapers"),
+              icon:Icon(Icons.image)
+            ),
+            Tab(
+                child:Text("Search"),
+                icon:Icon(Icons.search)
+            )
+          ],
+        ),
+
+      ),
+      body: TabBarView(
+        controller: controller,
+          children: <Widget>[
+
+          ]
+      ),
+    );
   }
 }
 
