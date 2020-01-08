@@ -53,10 +53,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   void fetchData() async {
-    var data = await http.get(url("wallpapers",1,5),headers: header);
+    var data = await http.get(url("wallpapers",1,20),headers: header);
     var decodedJson = jsonDecode(data.body);
     obj = DartObject.fromJson(decodedJson);
     print(data.body);
+    setState(() {
+
+    });
   }
 
   @override
@@ -79,11 +82,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         ),
 
       ),
-      body: TabBarView(
+      body: (obj==null)?Center(child: CircularProgressIndicator()): TabBarView(
         controller: controller,
           children: <Widget>[
-              Wallpapers(),
-              SearchPage()
+              Wallpapers(obj),
+              SearchPage(obj)
           ]
       ),
     );
