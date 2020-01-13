@@ -40,26 +40,32 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   };
 
   DartObject obj;
+  int pageNo = 1;
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchData("wallpaper",20);
     controller = TabController(length: 2, vsync: this);
+  }
+
+  incPage(){
+    pageNo++;
   }
 
   String url(String query, int pageNo, int perPage){
     return "https://api.pexels.com/v1/search?query=${query.trim()}+query&per_page=$perPage&page=${pageNo}";
   }
 
-  void fetchData() async {
-    var data = await http.get(url("wallpapers",1,20),headers: header);
+  Future<void> fetchData(String query, int perPage) async {
+    var data = await http.get(url(query,pageNo,perPage),headers: header);
+    incPage();
     var decodedJson = jsonDecode(data.body);
     obj = DartObject.fromJson(decodedJson);
-    print(data.body);
     setState(() {
 
     });
+    return null;
   }
 
   @override
@@ -85,7 +91,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       body: (obj==null)?Center(child: CircularProgressIndicator()): TabBarView(
         controller: controller,
           children: <Widget>[
-              Wallpapers(obj),
+              Wallpapers(obj,fetchData),
               SearchPage(obj)
           ]
       ),
